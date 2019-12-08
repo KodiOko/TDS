@@ -2,6 +2,7 @@ from PIL import Image
 import cv2
 import numpy as np
 from skimage.morphology import convex_hull_image
+from skimage import feature
 
 #IMAGE A TRAITER
 img_voiture=Image.open('/mnt/c/Users/KodiAk/OneDrive/Documents/tdsProject/voiture-rouge.jpg')
@@ -50,3 +51,8 @@ img_voiture_binaire.save('/mnt/c/Users/KodiAk/Desktop/voiture_rouge_binaire.jpg'
 img_voiture_array_contours = convex_hull_image(img_voiture_array_binaire)
 img_voiture_contours = Image.fromarray(img_voiture_array_contours)
 img_voiture_contours.save('/mnt/c/Users/KodiAk/Desktop/voiture_rouge_contours.jpg')
+
+#FONCTION EXISTANTE
+edges = feature.canny(img_voiture_array_contours)
+imageed = Image.fromarray(edges)
+imageed.save('/mnt/c/Users/KodiAk/Desktop/voiture_rouge_canny.jpg')
