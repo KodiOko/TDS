@@ -1,5 +1,6 @@
 import cv2 as cv
 import os
+import select_rouge.py
 
 #VIDEO
 vi = cv.VideoCapture('/mnt/c/Users/KodiAk/OneDrive/Documents/tdsProject/video_pull_rouge.mp4')
