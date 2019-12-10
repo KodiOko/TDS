@@ -1,6 +1,6 @@
 import cv2 as cv
 import os
-import select_rouge.py
+from select_rouge import traitement
 
 #VIDEO
 vi = cv.VideoCapture('/mnt/c/Users/KodiAk/OneDrive/Documents/tdsProject/video_pull_rouge.mp4')
@@ -11,8 +11,9 @@ fps = vi.get(cv.CAP_PROP_FPS)
 
 while vi.get(cv.CAP_PROP_POS_FRAMES)!=nb_frames :
 	r, frame = vi.read()
-	nom_image = '/mnt/c/Users/KodiAk/Pictures/test/' + 'image_' + str(int(vi.get(cv.CAP_PROP_POS_FRAMES))).zfill(longueur) + '.jpg'
-	cv.imwrite(nom_image, frame)
+	frame2 = traitement(frame)
+	nom_image = '/mnt/c/Users/KodiAk/Pictures/test/' + 'image_' + str(int(vi.get(cv.CAP_PROP_POS_FRAMES))).zfill(longueur) + '.png'
+	cv.imwrite(nom_image, frame2)
 vi.release()
 
 
@@ -22,7 +23,7 @@ frame=cv.imread('/mnt/c/Users/KodiAk/Pictures/test/'+liste[0])
 h, l, c = frame.shape
 
 fourcc = cv.VideoWriter_fourcc(*'XVID')
-vid = cv.VideoWriter('output.avi', fourcc, fps, (l,h))
+vid = cv.VideoWriter('/mnt/c/Users/KodiAk/Desktop/output.avi', fourcc, fps, (l,h))
 for i in range(len(liste)) : 
 	frame=cv.imread('/mnt/c/Users/KodiAk/Pictures/test/'+liste[i])
 	vid.write(frame)
