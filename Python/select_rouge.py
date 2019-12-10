@@ -66,7 +66,6 @@ def traitement(img_voiture_array) :
 	#img_voiture_finale.save('/mnt/c/Users/KodiAk/Desktop/voiture_rouge_finale.jpg')
 
 	#AUTRE TEST (FONCTIONNE)
-	img2 = img_voiture.convert('RGBA')
 	def transp(img) :
 		img1 = img.convert('RGBA')
 		datas = img1.getdata()
@@ -82,7 +81,7 @@ def traitement(img_voiture_array) :
 	transparent = transp(imageed)
 	#transparent.save('/mnt/c/Users/KodiAk/Desktop/voiture_rouge_transparent.png')
 	img_voiture.paste(transparent, (0, 0), transparent)
-	#img_voiture.save('/mnt/c/Users/KodiAk/Desktop/voiture_rouge_blend.png')
+	#img_voiture.save('/mnt/c/Users/KodiAk/Desktop/voiture_rouge_blend.jpg')
 	return np.array(img_voiture)
 	
-Image.fromarray(traitement(np.array(Image.open('/mnt/c/Users/KodiAk/Pictures/test/image_068.png')))).save('/mnt/c/Users/KodiAk/Desktop/voiture_rouge_blend.png')
+#Image.fromarray(traitement(np.array(Image.open('/mnt/c/Users/KodiAk/Pictures/test/test2.png')))).save('/mnt/c/Users/KodiAk/Desktop/voiture_rouge_blend2.png')
