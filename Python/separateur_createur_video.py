@@ -6,21 +6,29 @@ from PIL import Image
 import numpy as np
 
 #VIDEO
-vi = cv.VideoCapture('/mnt/c/Users/KodiAk/OneDrive/Documents/tdsProject/video_pull_rouge.mp4')
+vi = cv.VideoCapture('/mnt/c/Users/KodiAk/OneDrive/Documents/tdsProject/video_ballons.mp4')
 
 nb_frames = vi.get(cv.CAP_PROP_FRAME_COUNT)
 longueur = len(str(int(nb_frames)))
 fps = vi.get(cv.CAP_PROP_FPS)
 
 framearray = []
-while vi.get(cv.CAP_PROP_POS_FRAMES)!=nb_frames :
+passe = True
+while vi.get(cv.CAP_PROP_POS_FRAMES)!= nb_frames :
 	r, frame = vi.read()
-	frame_traitementRGB = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
-	frame_traitee = traitement(frame_traitementRGB)
-	frame_traiteeBGR = cv.cvtColor(frame_traitee, cv.COLOR_RGB2BGR)
+	
+	if passe :
+		frame_traitementRGB = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
+		frame_traitee = traitement(frame_traitementRGB)
+		#Image.fromarray(frame_traitementRGB).save('/mnt/c/Users/KodiAk/Desktop/test_ballons.jpg')
+		frame_traiteeBGR = cv.cvtColor(frame_traitee, cv.COLOR_RGB2BGR)
+		framearray.append(frame_traiteeBGR)
+		passe = False
 	#nom_image = '/mnt/c/Users/KodiAk/Pictures/test/' + 'image_' + str(int(vi.get(cv.CAP_PROP_POS_FRAMES))).zfill(longueur) + '.png'
 	#cv.imwrite(nom_image, frame)
-	framearray.append(frame_traiteeBGR)
+	else :
+		framearray.append(frame)
+		passe = True
 vi.release()
 
 

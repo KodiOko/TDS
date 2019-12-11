@@ -40,10 +40,14 @@ def traitement(img_voiture_array) :
 		h, l = img.shape
 		for i in range(h) :
 			for j in range(l) :
-				if img[i][j]>180 or img[i][j]<90 :
+				if img[i][j]>76 or img[i][j]<45 :
 					img[i][j] = 0
 		return img
-
+	
+	#BLEU -> 88-35 + gray-hue / 76-43 ballons video
+	#ROUGE -> 180-90 + gray-hue
+	#VERT -> 80-10 + utiliser sal-hue
+	
 	#UTILISATION DE LA FONCTION PRECEDENTE
 	img_voiture_array_binaire = retouche(img_voiture_array_sub)
 	img_voiture_binaire = Image.fromarray(img_voiture_array_binaire)
@@ -84,4 +88,4 @@ def traitement(img_voiture_array) :
 	#img_voiture.save('/mnt/c/Users/KodiAk/Desktop/voiture_rouge_blend.jpg')
 	return np.array(img_voiture)
 	
-#Image.fromarray(traitement(np.array(Image.open('/mnt/c/Users/KodiAk/Pictures/test/test2.png')))).save('/mnt/c/Users/KodiAk/Desktop/voiture_rouge_blend2.png')
+#Image.fromarray(traitement(np.array(Image.open('/mnt/c/Users/KodiAk/Desktop/test_ballons.jpg')))).save('/mnt/c/Users/KodiAk/Desktop/result_test.png')
