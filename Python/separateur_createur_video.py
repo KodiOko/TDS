@@ -28,13 +28,14 @@ def tracking(path_src, path_dest):
 		else :
 			frame_image = Image.fromarray(frame_traitementRGB)
 			frame_image.paste(mask, (0, 0), mask)
-			frame_same = cv.cvtColor(np.array(frame_image), cv.COLOR_RGB2BGR)
+			frame_bgr = cv.cvtColor(np.array(frame_image), cv.COLOR_RGB2BGR)
+			frame_same = np.array(frame_bgr)
 			framearray.append(frame_same)
 			count-=1
 		
 	vi.release()
 
-
+	
 	h, l, c = framearray[0].shape
 
 	fourcc = cv.VideoWriter_fourcc(*'XVID')
