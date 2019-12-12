@@ -3,32 +3,24 @@ import numpy as np
 from skimage.morphology import convex_hull_image
 from skimage import feature
 
-#***************************************INTERESSANT, LE BLEU PEUT ETRE 'SELECTIONNE'
 def traitement(img_voiture_array) :
-	#IMAGE A TRAITER
-	#img_voiture=Image.open('/mnt/c/Users/KodiAk/Pictures/test/image_001.jpg')
-	#img_voiture.save('/mnt/c/Users/KodiAk/Desktop/voiture_rouge.jpg')
-
-	#TRANSFORMATION EN ARRAY POUR TRAITER
+	#TRANSFORMATION EN IMAGE POUR TRAITER
 	img_voiture=Image.fromarray(img_voiture_array)
-	#img_voiture_array=np.array(img_voiture)
 
 	#TRANSFORMATION EN HUE
 	img_voiture_array_hue=img_voiture_array[:,:,0]
 	img_voiture_hue=Image.fromarray(img_voiture_array_hue)
 	#img_voiture_hue.save('/mnt/c/Users/KodiAk/Desktop/voiture_rouge_hue.jpg')
 
-	#TRANSFORMATION EN SAL
-	img_voiture_array_sal=img_voiture_array[:,:,1]
-	img_voiture_sal=Image.fromarray(img_voiture_array_sal)
-	#img_voiture_sal.save('/mnt/c/Users/KodiAk/Desktop/voiture_rouge_sal.jpg')
+	#TRANSFORMATION EN SAT
+	img_voiture_array_sat=img_voiture_array[:,:,1]
+	img_voiture_sat=Image.fromarray(img_voiture_array_sat)
+	#img_voiture_sat.save('/mnt/c/Users/KodiAk/Desktop/voiture_rouge_sal.jpg')
 
 	#RGB2GRAY EQUIVALENT
 	img_voiture_gray=img_voiture.convert('L')
-	#img_voiture_gray.save('/mnt/c/Users/KodiAk/Desktop/voiture_rouge_gray.jpg')
-
-	#TRANSFORMATION GRAY EN ARRAY
 	img_voiture_array_gray=np.array(img_voiture_gray)
+	#img_voiture_gray.save('/mnt/c/Users/KodiAk/Desktop/voiture_rouge_gray.jpg')
 
 	#SUBTRACT DE GRAY - HUE SIMPLE (le plus precis)
 	img_voiture_array_sub = img_voiture_array_gray - img_voiture_array_hue
@@ -40,7 +32,7 @@ def traitement(img_voiture_array) :
 		h, l = img.shape
 		for i in range(h) :
 			for j in range(l) :
-				if img[i][j]>76 or img[i][j]<45 :
+				if img[i][j]>180 or img[i][j]<90 :
 					img[i][j] = 0
 		return img
 	
@@ -63,12 +55,6 @@ def traitement(img_voiture_array) :
 	imageed = Image.fromarray(edges)
 	#imageed.save('/mnt/c/Users/KodiAk/Desktop/voiture_rouge_canny.jpg')
 
-	#TEST AJOUT
-	#img_voiture_RGB = img_voiture_contours.convert('RGB')
-	#img_voiture_array = img_voiture_RGB + img_voiture_array
-	#img_voiture_finale = Image.fromarray(img_voiture_array)
-	#img_voiture_finale.save('/mnt/c/Users/KodiAk/Desktop/voiture_rouge_finale.jpg')
-
 	#AUTRE TEST (FONCTIONNE)
 	def transp(img) :
 		img1 = img.convert('RGBA')
@@ -86,6 +72,6 @@ def traitement(img_voiture_array) :
 	#transparent.save('/mnt/c/Users/KodiAk/Desktop/voiture_rouge_transparent.png')
 	img_voiture.paste(transparent, (0, 0), transparent)
 	#img_voiture.save('/mnt/c/Users/KodiAk/Desktop/voiture_rouge_blend.jpg')
-	return np.array(img_voiture)
+	return (np.array(img_voiture), transparent)
 	
 #Image.fromarray(traitement(np.array(Image.open('/mnt/c/Users/KodiAk/Desktop/test_ballons.jpg')))).save('/mnt/c/Users/KodiAk/Desktop/result_test.png')
