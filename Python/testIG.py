@@ -8,7 +8,7 @@ class Root(Tk):
 
     def __init__(self):
         super(Root, self).__init__()
-        self.title("Tkinter Dialog Widget")
+        self.title("Tracking couleur")
         self.minsize(640,240)
         #self.wm_iconbitmap('icon.ico')
 
@@ -32,7 +32,7 @@ class Root(Tk):
 
 
     def mybutton(self):
-        self.button = ttk.Button(self.labelFrame, text = "lancer le tracking",command = tracking(,))
+        self.button = ttk.Button(self.labelFrame, text = "lancer le tracking",command = tracking(str(self.fileDialog),str(self.fileDialogDest)))
         self.button.grid(column = 3, row = 1)
 
     def fileDialog(self):
@@ -43,6 +43,8 @@ class Root(Tk):
         self.label.grid(column = 1,row = 2)
         self.label.configure(text = self.filename)
 
+        return self.filename
+
     def fileDialogDest(self):
         
         self.filename = filedialog.askdirectory(initialdir = "C:\\", title = "Select A Folder")
@@ -50,6 +52,8 @@ class Root(Tk):
         self.label = ttk.Label(self.labelFrame, text = "")
         self.label.grid(column = 1,row = 3)
         self.label.configure(text = self.filename)
+
+        return self.filename
 
 
 
