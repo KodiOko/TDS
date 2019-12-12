@@ -32,7 +32,7 @@ class Root(Tk):
 
 
     def mybutton(self):
-        self.button = ttk.Button(self.labelFrame, text = "lancer le tracking",command = tracking(str(self.fileDialog),str(self.fileDialogDest)))
+        self.button = ttk.Button(self.labelFrame, text = "lancer le tracking",command = lambda: tracking(str(self.fileDialog),str(self.fileDialogDest)))
         self.button.grid(column = 3, row = 1)
 
     def fileDialog(self):
